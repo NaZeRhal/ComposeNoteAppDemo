@@ -1,11 +1,15 @@
 package com.example.composenoteappdemo.feature_note.presentation.notes
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.composenoteappdemo.core.util.TestTags
 import com.example.composenoteappdemo.di.AppModule
 import com.example.composenoteappdemo.feature_note.presentation.MainActivity
 import com.example.composenoteappdemo.feature_note.presentation.util.Screen
@@ -35,7 +39,10 @@ class NotesScreenTest {
         composeRule.setContent {
             val navController = rememberNavController()
             ComposeNoteAppTheme {
-                NavHost(navController = navController, startDestination = Screen.NotesScreen.route) {
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.NotesScreen.route
+                ) {
                     composable(Screen.NotesScreen.route) { NotesScreen(navController = navController) }
                 }
             }
@@ -44,6 +51,8 @@ class NotesScreenTest {
 
     @Test
     fun clickToggleOrderSection_isVisible() {
-        composeRule.onNodeWithTag()
+        composeRule.onNodeWithTag(TestTags.ORDER_SECTION).assertDoesNotExist()
+        composeRule.onNodeWithContentDescription("Sort notes toggle").performClick()
+        composeRule.onNodeWithTag(TestTags.ORDER_SECTION).assertIsDisplayed()
     }
 }

@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.composenoteappdemo.core.util.TestTags
 import com.example.composenoteappdemo.feature_note.presentation.notes.components.NoteItem
 import com.example.composenoteappdemo.feature_note.presentation.notes.components.OrderSection
 import com.example.composenoteappdemo.feature_note.presentation.notes.viewmodel.NotesViewModel
@@ -74,7 +75,8 @@ fun NotesScreen(
                 OrderSection(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 16.dp),
+                        .padding(vertical = 16.dp)
+                        .testTag(TestTags.ORDER_SECTION),
                     noteOrder = state.noteOrder,
                     onOrderChange = { newOrder ->
                         notesViewModel.onEvent(NotesEvent.ChangeOrder(newOrder))
